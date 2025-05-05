@@ -31,4 +31,7 @@ public class SalesJpaService {
     public List<Sale> getSalesWithAmountGreaterThan100() {
         return saleRepository.findByAmountGreaterThan(new BigDecimal("100"));
     }
+    public List<Sale> getSales() {
+        return saleRepository.findAll();
+    }
 }

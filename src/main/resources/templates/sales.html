@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales - TechIndustry</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>TechIndustry</h1>
+<h2>Sales Management</h2>
+<p>Current Seller: <span th:text="${sellerName}"></span></p>
+
+<h3>Sales List (Amount > 100)</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Receipt Date</th>
+        <th>Sale Date</th>
+        <th>Product ID</th>
+    </tr>
+    <tr th:each="sale : ${sales}">
+        <td th:text="${sale.id}"></td>
+        <td th:text="${sale.amount}"></td>
+        <td th:text="${sale.receiptDate}"></td>
+        <td th:text="${sale.saleDate}"></td>
+        <td th:text="${sale.productId}"></td>
+    </tr>
+</table>
+
+<h3>Add New Sale</h3>
+<form th:action="@{/sales}" th:object="${saleDto}" method="post">
+    <div>
+        <label for="amount">Amount:</label>
+        <input type="number" step="0.01" id="amount" th:field="*{amount}"/>
+    </div>
+    <div>
+        <label for="receiptDate">Receipt Date:</label>
+        <input type="date" id="receiptDate" th:field="*{receiptDate}"/>
+    </div>
+    <div>
+        <label for="saleDate">Sale Date:</label>
+        <input type="date" id="saleDate" th:field="*{saleDate}"/>
+    </div>
+    <div>
+        <label for="productId">Product ID:</label>
+        <input type="number" id="productId" th:field="*{productId}"/>
+    </div>
+    <div>
+        <input type="submit" value="Add Sale"/>
+    </div>
+</form>
+</body>
+</html>
