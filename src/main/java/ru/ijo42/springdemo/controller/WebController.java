@@ -6,8 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.ijo42.springdemo.SalesJpaService;
-import ru.ijo42.springdemo.entity.Sale;
+import ru.ijo42.springdemo.service.SalesJpaService;
 import ru.ijo42.springdemo.entity.SaleDto;
 import ru.ijo42.springdemo.entity.SellerDto;
 
@@ -44,16 +43,5 @@ public class WebController {
         model.addAttribute("sales", jpaService.getSales());
         model.addAttribute("saleDto", new SaleDto());
         return "sales";
-    }
-
-    @PostMapping("/sales")
-    public String addSale(@ModelAttribute SaleDto saleDto, HttpSession session) {
-        Sale sale = new Sale();
-        sale.setAmount(saleDto.getAmount());
-        sale.setReceiptDate(saleDto.getReceiptDate());
-        sale.setSaleDate(saleDto.getSaleDate());
-        sale.setProductId(saleDto.getProductId());
-        jpaService.saveSale(sale);
-        return "redirect:/sales";
     }
 }

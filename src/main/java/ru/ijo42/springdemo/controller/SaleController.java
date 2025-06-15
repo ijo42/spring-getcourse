@@ -2,8 +2,8 @@ package ru.ijo42.springdemo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.ijo42.springdemo.SalesJdbcService;
-import ru.ijo42.springdemo.SalesJpaService;
+import ru.ijo42.springdemo.service.SalesJdbcService;
+import ru.ijo42.springdemo.service.SalesJpaService;
 import ru.ijo42.springdemo.entity.Sale;
 import ru.ijo42.springdemo.entity.SaleDto;
 
@@ -22,15 +22,15 @@ public class SaleController {
         this.jdbcService = jdbcService;
     }
 
-    @PostMapping
-    public ResponseEntity<Sale> createSale(@RequestBody SaleDto saleDto) {
-        Sale sale = new Sale();
-        sale.setAmount(saleDto.getAmount());
-        sale.setReceiptDate(saleDto.getReceiptDate());
-        sale.setSaleDate(saleDto.getSaleDate());
-        sale.setProductId(saleDto.getProductId());
+    @PostMapping("/jpa")
+    public ResponseEntity<Sale> createSaleJPA(@RequestBody SaleDto saleDto) {
+        Sale savedSale = jpaService.saveSale(saleDto);
+        return ResponseEntity.ok(savedSale);
+    }
 
-        Sale savedSale = jpaService.saveSale(sale);
+    @PostMapping("/jdbc")
+    public ResponseEntity<Sale> createSaleJDBC(@RequestBody SaleDto saleDto) {
+        Sale savedSale = jdbcService.saveSale(saleDto);
         return ResponseEntity.ok(savedSale);
     }
 
@@ -41,15 +41,15 @@ public class SaleController {
     }
 
     @GetMapping("/jdbc/{id}")
-    public ResponseEntity<SalesJdbcService.Sale> getJdbcSaleById(@PathVariable Long id) {
-        Optional<SalesJdbcService.Sale> sale = jdbcService.getSaleById(id);
+    public ResponseEntity<Sale> getJdbcSaleById(@PathVariable Long id) {
+        Optional<Sale> sale = jdbcService.getSaleById(id);
         return sale.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/jdbc/amount-greater-than-100")
-    public ResponseEntity<List<SalesJdbcService.Sale>> getJdbcSalesWithAmountGreaterThan100() {
-        List<SalesJdbcService.Sale> sales = jdbcService.getSalesWithAmountGreaterThan100();
+    public ResponseEntity<List<Sale>> getJdbcSalesWithAmountGreaterThan100() {
+        List<Sale> sales = jdbcService.getSalesWithAmountGreaterThan100();
         return ResponseEntity.ok(sales);
     }
 

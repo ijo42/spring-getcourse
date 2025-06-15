@@ -1,7 +1,9 @@
-package ru.ijo42.springdemo;
+package ru.ijo42.springdemo.service;
 
 import org.springframework.stereotype.Service;
 import ru.ijo42.springdemo.entity.Sale;
+import ru.ijo42.springdemo.entity.SaleDto;
+import ru.ijo42.springdemo.repository.SaleRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,7 +26,8 @@ public class SalesJpaService {
         return saleRepository.findById(id);
     }
 
-    public Sale saveSale(Sale sale) {
+    public Sale saveSale(SaleDto saleDto) {
+        var sale = new Sale(saleDto);
         return saleRepository.save(sale);
     }
 
