@@ -46,4 +46,15 @@ public class Sale {
                 ", productId=" + productId +
                 '}';
     }
+
+    public Sale(SaleDto saleDto) {
+        this.id = saleDto.getProductId();
+        this.amount = saleDto.getAmount();
+        this.receiptDate = saleDto.getReceiptDate();
+        this.saleDate = saleDto.getSaleDate();
+    }
+
+    public Sale() {
+
+    }
 }
