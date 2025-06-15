@@ -1,4 +1,4 @@
-package ru.ijo42.springdemo;
+package ru.ijo42.springdemo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.ijo42.springdemo.entity.Sale;
