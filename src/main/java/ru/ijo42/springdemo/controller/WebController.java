@@ -40,7 +40,7 @@ public class WebController {
     public String sales(Model model, HttpSession session) {
         String sellerName = (String) session.getAttribute("sellerName");
         model.addAttribute("sellerName", sellerName != null ? sellerName : "Unknown");
-        model.addAttribute("sales", jpaService.getSales());
+        model.addAttribute("sales", jpaService.getSalesWithAmountGreaterThan100());
         model.addAttribute("saleDto", new SaleDto());
         return "sales";
     }

@@ -48,10 +48,10 @@ public class Sale {
     }
 
     public Sale(SaleDto saleDto) {
-        this.id = saleDto.getProductId();
         this.amount = saleDto.getAmount();
         this.receiptDate = saleDto.getReceiptDate();
         this.saleDate = saleDto.getSaleDate();
+        this.productId = saleDto.getProductId().intValue();
     }
 
     public Sale() {
